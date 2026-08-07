@@ -22,7 +22,7 @@ HTML file.
 ```
 
 - `title`: name shown on the block, and in the preview popup
-- `category`: project type (Brand content, Corporate events, Rightfit, F&B, Travel...) — this drives both the category section headings on the Work page and the category pills. Add a new category name here any time; its section appears automatically once at least one project uses it.
+- `category`: project type (Brand content, Corporate events, Fitness, F&B, Travel...) — this drives both the category section headings on the Work page and the category pills. Add a new category name here any time; its section appears automatically once at least one project uses it.
 - `image`: path to your still frame — used as the poster, and as the fallback if no video is set
 - `video`: optional — a short clip that plays on hover (desktop) / tap (mobile). Leave out or set to `""` to show only the still frame.
 - `wideVideo`: optional — a wider version of `video` (e.g. the same clip mirrored side-by-side into a landscape composite) used in the preview popup instead of `video`, so a vertical/portrait clip doesn't leave empty space on the sides of the popup. Leave out to just reuse `video` in the popup too.
@@ -30,7 +30,7 @@ HTML file.
 - `focus`: optional — which part of the frame stays centered when it's cropped to fill its square thumbnail, as a CSS `object-position` value like `"70% 30%"` (horizontal% vertical%). Useful when the subject isn't in the middle of the shot. Defaults to `"50% 50%"` (centered) if omitted.
 
 The Work page groups projects into one section per category (Brand content,
-Corporate events, F&B, Rightfit...), each with a heading and a row of square
+Corporate events, F&B, Fitness...), each with a heading and a row of square
 thumbnails — easier to scan than one mixed grid. Clicking a thumbnail opens
 it larger in a preview popup, with a "Watch full video" link if you set one.
 A row of pill buttons at the top can also filter down to a single category.
@@ -40,11 +40,11 @@ A row of pill buttons at the top can also filter down to a single category.
 ## Browsing by category
 
 On the About page (`about.html`), the Filming block has clickable category
-pills (Brand content, Corporate events, Rightfit...). Clicking one reveals an
+pills (Brand content, Corporate events, Fitness...). Clicking one reveals an
 inline strip of thumbnails for that category — clicking a thumbnail jumps
 straight to that project's preview on the Work page. On the Work page itself
 (`index.html`), the same pills filter the grid directly, and the filter is
-reflected in the URL (`index.html?category=Rightfit`) so you can link/bookmark
+reflected in the URL (`index.html?category=Fitness`) so you can link/bookmark
 a filtered view.
 
 The 13 projects currently in `projects.js` are real frames and clips pulled
