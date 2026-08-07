@@ -1,15 +1,14 @@
 // Builds the project list from the PROJECTS list defined in projects.js.
 // To add/edit a project: edit projects.js, no code knowledge required.
 // See README.md for the exact format.
-// This file runs on both about.html (category preview) and
-// index.html (Work grid + filter pills + lightbox) — every function
-// checks the DOM elements it needs exist before doing anything.
+// Single-page site (index.html): About category preview, Work grid + filter
+// pills + lightbox — every function checks the DOM elements it needs exist
+// before doing anything.
 
 if (document.getElementById('project-grid')) {
   renderProjects(PROJECTS);
   initLightbox();
   initWorkFilterPills();
-  handleDeepLink();
 }
 
 if (document.querySelector('.reel')) {
@@ -164,10 +163,11 @@ function getCategories() {
     .map(([name, count]) => ({ name, count }));
 }
 
-// ---------- Category preview (about.html → Filming block) ----------
+// ---------- Category preview (About → Filming block) ----------
 // Clicking a category pill reveals an animated strip of thumbnails for that
 // category right there, no page jump, no dropdown. Clicking a thumbnail
-// opens that project's preview on the Work page.
+// scrolls down to that project's card in the Work section and opens its
+// preview, since About and Work now live on the same page.
 function initCategoryPreview() {
   const pillsWrap = document.getElementById('category-pills');
   const preview = document.getElementById('category-preview');
@@ -211,10 +211,15 @@ function initCategoryPreview() {
 
       matches.forEach(({ project, index }) => track.appendChild(buildPreviewThumb(project, index)));
 
-      const more = document.createElement('a');
+      const more = document.createElement('button');
+      more.type = 'button';
       more.className = 'category-preview-more';
-      more.href = `index.html?category=${encodeURIComponent(name)}`;
       more.textContent = 'See all in Work ↗';
+      more.addEventListener('click', () => {
+        const pill = document.querySelector(`#work-filter-pills .category-pill[data-category="${CSS.escape(name)}"]`);
+        if (pill) pill.click();
+        document.getElementById('work').scrollIntoView({ behavior: 'smooth' });
+      });
       track.appendChild(more);
 
       preview.classList.add('is-open');
@@ -225,10 +230,24 @@ function initCategoryPreview() {
 }
 
 function buildPreviewThumb(project, index) {
-  const thumb = document.createElement('a');
+  const thumb = document.createElement('div');
   thumb.className = 'preview-thumb';
-  thumb.href = `index.html?p=${index}`;
+  thumb.tabIndex = 0;
+  thumb.setAttribute('role', 'button');
   thumb.setAttribute('aria-label', `Open ${project.title || 'project'}`);
+
+  const openProject = () => {
+    const card = document.querySelector(`#project-grid .project-card[data-index="${index}"]`);
+    if (card) card.scrollIntoView({ behavior: 'smooth', block: 'center' });
+    openLightbox(project);
+  };
+  thumb.addEventListener('click', openProject);
+  thumb.addEventListener('keydown', (e) => {
+    if (e.key === 'Enter' || e.key === ' ') {
+      e.preventDefault();
+      openProject();
+    }
+  });
 
   const focus = project.focus || '50% 50%';
 
@@ -274,6 +293,7 @@ function initWorkFilterPills() {
   const allPill = document.createElement('button');
   allPill.type = 'button';
   allPill.className = 'category-pill';
+  allPill.dataset.category = 'all';
   allPill.innerHTML = `All<span class="count">${PROJECTS.length}</span>`;
   wrap.appendChild(allPill);
 
@@ -283,6 +303,7 @@ function initWorkFilterPills() {
     const pill = document.createElement('button');
     pill.type = 'button';
     pill.className = 'category-pill';
+    pill.dataset.category = name;
     pill.innerHTML = `${escapeHtml(name)}<span class="count">${count}</span>`;
     pill.addEventListener('click', () => applyWorkFilter(name));
     wrap.appendChild(pill);
@@ -314,24 +335,6 @@ function initWorkFilterPills() {
   } else {
     applyWorkFilter('all');
   }
-}
-
-// ---------- Deep link (index.html?p=<index>) ----------
-// Lets a thumbnail on the About page open the matching project directly.
-function handleDeepLink() {
-  const params = new URLSearchParams(window.location.search);
-  const p = params.get('p');
-  if (p === null) return;
-
-  const index = parseInt(p, 10);
-  const project = PROJECTS[index];
-  if (!project) return;
-
-  const card = document.querySelector(`#project-grid .project-card[data-index="${index}"]`);
-  if (card) {
-    card.scrollIntoView({ behavior: 'instant', block: 'center' });
-  }
-  openLightbox(project);
 }
 
 // ---------- Lightbox: enlarges the clicked project on click ----------

@@ -1,12 +1,17 @@
 # Portfolio — Pierre-Yves Grelier
 
-Three-page static site, clean editorial design:
-- `index.html` — the Work page (video reel banner + filterable project grid) — this is the homepage
-- `about.html` — photo, bio, skills
-- `contact.html` — email, social links
+Single-page static site, clean editorial design. `index.html` has everything,
+top to bottom:
+- Full-screen looping video hero
+- About — photo, bio, skills
+- Work — filterable project grid
+- Contact — email, social links
 
-All three pages share `style.css`, `projects.js` (your project data) and
-`script.js`. No server, no build step — works by just double-clicking any
+The nav links (`About` / `Work` / `Contact`) just scroll to each section in
+place (`#about`, `#work`, `#contact`).
+
+`index.html` uses `style.css`, `projects.js` (your project data) and
+`script.js`. No server, no build step — works by just double-clicking the
 HTML file.
 
 ## Adding a project
@@ -22,30 +27,32 @@ HTML file.
 ```
 
 - `title`: name shown on the block, and in the preview popup
-- `category`: project type (Brand content, Corporate events, Fitness, F&B, Travel...) — this drives both the category section headings on the Work page and the category pills. Add a new category name here any time; its section appears automatically once at least one project uses it.
+- `category`: project type (Brand content, Corporate events, Fitness, F&B, Travel...) — this drives the category filter pills on the Work section and the About-section category browser. Add a new category name here any time; it appears automatically once at least one project uses it.
 - `image`: path to your still frame — used as the poster, and as the fallback if no video is set
 - `video`: optional — a short clip that plays on hover (desktop) / tap (mobile). Leave out or set to `""` to show only the still frame.
 - `wideVideo`: optional — a wider version of `video` (e.g. the same clip mirrored side-by-side into a landscape composite) used in the preview popup instead of `video`, so a vertical/portrait clip doesn't leave empty space on the sides of the popup. Leave out to just reuse `video` in the popup too.
 - `link`: optional — if filled in, the preview popup shows a "Watch full video" link to this URL (e.g. an unlisted YouTube/Vimeo link). Leave `""` if you don't want a link.
 - `focus`: optional — which part of the frame stays centered when it's cropped to fill its square thumbnail, as a CSS `object-position` value like `"70% 30%"` (horizontal% vertical%). Useful when the subject isn't in the middle of the shot. Defaults to `"50% 50%"` (centered) if omitted.
 
-The Work page groups projects into one section per category (Brand content,
-Corporate events, F&B, Fitness...), each with a heading and a row of square
-thumbnails — easier to scan than one mixed grid. Clicking a thumbnail opens
-it larger in a preview popup, with a "Watch full video" link if you set one.
-A row of pill buttons at the top can also filter down to a single category.
+The Work section shows all projects in one flat grid of square thumbnails,
+with the project name shown discreetly in the middle of each — easier to
+scan than sectioned-off categories, and no leftover empty grid cells. Clicking
+a thumbnail opens it larger in a preview popup, with a "Watch full video"
+link if you set one. A row of pill buttons at the top can also filter down
+to a single category.
 
-3. Save `projects.js`, reload the page in your browser — the project shows up automatically on both the About-page category preview and the Work page.
+3. Save `projects.js`, reload the page in your browser — the project shows up automatically in both the About-section category preview and the Work grid.
 
 ## Browsing by category
 
-On the About page (`about.html`), the Filming block has clickable category
-pills (Brand content, Corporate events, Fitness...). Clicking one reveals an
-inline strip of thumbnails for that category — clicking a thumbnail jumps
-straight to that project's preview on the Work page. On the Work page itself
-(`index.html`), the same pills filter the grid directly, and the filter is
-reflected in the URL (`index.html?category=Fitness`) so you can link/bookmark
-a filtered view.
+In the About section, the Filming block has clickable category pills (Brand
+content, Corporate events, Fitness...). Clicking one reveals an inline strip
+of thumbnails for that category — clicking a thumbnail scrolls down to that
+project's card in the Work grid and opens its preview. The "See all in Work"
+link next to the strip jumps to the Work section with the same category
+filter already applied. In the Work section itself, the same pills filter
+the grid directly, and the filter is reflected in the URL
+(`index.html?category=Fitness`) so you can link/bookmark a filtered view.
 
 The 13 projects currently in `projects.js` are real frames and clips pulled
 from your BrandPromo, CorporateEvent, Fitness, and Lifestyle footage — swap
@@ -100,5 +107,5 @@ The site updates automatically within 1-2 minutes.
 
 ## Finishing touches
 
-One thing to personalize directly in `contact.html` once you have them:
+One thing to personalize directly in `index.html`'s Contact section once you have them:
 - The 3 links in the Contact section (`data-placeholder="portfolio|instagram|linkedin"`) — replace the `href="#"` with your real URLs.
