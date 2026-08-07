@@ -92,13 +92,36 @@ a { color: inherit; text-decoration: none; }
   border-color: var(--accent);
 }
 
+.nav--overlay {
+  position: absolute;
+  left: 0;
+  right: 0;
+  top: 0;
+  z-index: 2;
+  background: transparent;
+  border-bottom: none;
+}
+
 /* ---------- REEL (Work landing banner) ---------- */
 .reel {
   position: relative;
-  height: 62vh;
-  min-height: 340px;
+  height: 100vh;
+  height: 100svh;
+  min-height: 480px;
   border-bottom: 1px solid var(--border);
   overflow: hidden;
+}
+
+.reel::before {
+  content: '';
+  position: absolute;
+  left: 0;
+  right: 0;
+  top: 0;
+  height: 30%;
+  background: linear-gradient(to top, transparent, rgba(0,0,0,0.65));
+  pointer-events: none;
+  z-index: 0;
 }
 
 .reel::after {
@@ -129,9 +152,15 @@ a { color: inherit; text-decoration: none; }
 .reel-overlay {
   position: absolute;
   left: clamp(1.5rem, 5vw, 4rem);
-  bottom: 2.5rem;
   right: clamp(1.5rem, 5vw, 4rem);
+  top: 6.5rem;
   z-index: 1;
+  text-align: center;
+}
+
+.reel-overlay .brand-bar {
+  margin-left: auto;
+  margin-right: auto;
 }
 
 .reel-overlay h1 {
@@ -182,7 +211,14 @@ a { color: inherit; text-decoration: none; }
 }
 
 @media (max-width: 720px) {
-  .reel { height: 48vh; min-height: 280px; }
+  .reel-overlay { top: 6.5rem; }
+}
+
+@media (max-width: 480px) {
+  .nav { padding: 1.2rem 1.2rem; }
+  .nav-name { font-size: 1.05rem; }
+  .nav-links { gap: 1rem; }
+  .nav-links a { font-size: 0.72rem; }
 }
 
 /* ---------- ABOUT ---------- */
@@ -429,9 +465,8 @@ a { color: inherit; text-decoration: none; }
 
 .work-section-grid {
   display: grid;
-  grid-template-columns: repeat(auto-fill, minmax(150px, 1fr));
-  gap: 6px;
-  padding: 0 clamp(1.5rem, 5vw, 4rem);
+  grid-template-columns: repeat(auto-fill, minmax(320px, 1fr));
+  gap: 3px;
 }
 
 .work-section-grid .project-overlay {
@@ -541,12 +576,6 @@ a { color: inherit; text-decoration: none; }
   color: var(--text-dim);
 }
 
-@media (max-width: 560px) {
-  .work-section-grid {
-    grid-template-columns: repeat(auto-fill, minmax(110px, 1fr));
-    gap: 4px;
-  }
-}
 
 /* ---------- LIGHTBOX ---------- */
 .lightbox {
