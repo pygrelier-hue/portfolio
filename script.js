@@ -357,7 +357,7 @@ function openLightbox(project) {
 
   if (project.video) {
     const video = document.createElement('video');
-    video.src = project.video;
+    video.src = project.wideVideo || project.video;
     video.poster = project.image || '';
     video.controls = true;
     video.autoplay = true;

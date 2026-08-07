@@ -25,6 +25,7 @@ HTML file.
 - `category`: project type (Brand content, Corporate events, Rightfit, F&B, Travel...) — this drives both the category section headings on the Work page and the category pills. Add a new category name here any time; its section appears automatically once at least one project uses it.
 - `image`: path to your still frame — used as the poster, and as the fallback if no video is set
 - `video`: optional — a short clip that plays on hover (desktop) / tap (mobile). Leave out or set to `""` to show only the still frame.
+- `wideVideo`: optional — a wider version of `video` (e.g. the same clip mirrored side-by-side into a landscape composite) used in the preview popup instead of `video`, so a vertical/portrait clip doesn't leave empty space on the sides of the popup. Leave out to just reuse `video` in the popup too.
 - `link`: optional — if filled in, the preview popup shows a "Watch full video" link to this URL (e.g. an unlisted YouTube/Vimeo link). Leave `""` if you don't want a link.
 - `focus`: optional — which part of the frame stays centered when it's cropped to fill its square thumbnail, as a CSS `object-position` value like `"70% 30%"` (horizontal% vertical%). Useful when the subject isn't in the middle of the shot. Defaults to `"50% 50%"` (centered) if omitted.
 
