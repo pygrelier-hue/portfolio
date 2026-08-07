@@ -1,8 +1,8 @@
 // Builds the project list from the PROJECTS list defined in projects.js.
 // To add/edit a project: edit projects.js, no code knowledge required.
 // See README.md for the exact format.
-// This file runs on both index.html (About → category preview) and
-// projects.html (Work grid + filter pills + lightbox) — every function
+// This file runs on both about.html (category preview) and
+// index.html (Work grid + filter pills + lightbox) — every function
 // checks the DOM elements it needs exist before doing anything.
 
 if (document.getElementById('project-grid')) {
@@ -16,92 +16,121 @@ if (document.getElementById('category-pills')) {
   initCategoryPreview();
 }
 
+// Work grid is grouped into one section per category (large heading +
+// a row of square thumbnails), so visitors can scan by category instead
+// of hunting through one mixed mosaic.
 function renderProjects(projects) {
   const grid = document.getElementById('project-grid');
   grid.innerHTML = '';
 
+  const sections = new Map();
   projects.forEach((project, index) => {
-    const card = document.createElement('div');
-    const size = project.size || 'small';
-    card.className = `project-card size-${size}`;
-    card.dataset.index = index;
-    card.dataset.category = project.category || '';
-    card.tabIndex = 0;
-    card.setAttribute('role', 'button');
-    card.setAttribute('aria-label', `Preview ${project.title || 'project'}`);
-
-    const focus = project.focus || '50% 50%';
-
-    if (project.video) {
-      const video = document.createElement('video');
-      video.src = project.video;
-      video.poster = project.image || '';
-      video.muted = true;
-      video.loop = true;
-      video.playsInline = true;
-      video.preload = 'metadata';
-      video.style.objectPosition = focus;
-      video.onerror = () => {
-        video.remove();
-        if (project.image) {
-          const img = document.createElement('img');
-          img.src = project.image;
-          img.alt = project.title || '';
-          img.style.objectPosition = focus;
-          card.appendChild(img);
-        } else {
-          card.appendChild(buildPlaceholder());
-        }
-      };
-      card.appendChild(video);
-
-      card.addEventListener('mouseenter', () => {
-        video.currentTime = 0;
-        video.play().catch(() => {});
-      });
-      card.addEventListener('mouseleave', () => {
-        video.pause();
-        video.currentTime = 0;
-      });
-      // On touch devices, tap plays/pauses in place.
-      card.addEventListener('touchstart', () => {
-        if (video.paused) {
-          video.play().catch(() => {});
-        }
-      }, { passive: true });
-    } else if (project.image) {
-      const img = document.createElement('img');
-      img.src = project.image;
-      img.alt = project.title || '';
-      img.style.objectPosition = focus;
-      img.onerror = () => {
-        img.remove();
-        card.appendChild(buildPlaceholder(project.image));
-      };
-      card.appendChild(img);
-    } else {
-      card.appendChild(buildPlaceholder());
-    }
-
-    const overlay = document.createElement('div');
-    overlay.className = 'project-overlay';
-    overlay.innerHTML = `
-      <div class="p-title">${escapeHtml(project.title || 'Untitled')}</div>
-      <div class="p-category">${escapeHtml(project.category || '')}</div>
-    `;
-    card.appendChild(overlay);
-
-    // Click (or Enter/Space) opens the lightbox preview.
-    card.addEventListener('click', () => openLightbox(project));
-    card.addEventListener('keydown', (e) => {
-      if (e.key === 'Enter' || e.key === ' ') {
-        e.preventDefault();
-        openLightbox(project);
-      }
-    });
-
-    grid.appendChild(card);
+    const cat = project.category || 'Other';
+    if (!sections.has(cat)) sections.set(cat, []);
+    sections.get(cat).push({ project, index });
   });
+
+  [...sections.keys()].sort((a, b) => a.localeCompare(b)).forEach((cat) => {
+    const items = sections.get(cat);
+
+    const section = document.createElement('section');
+    section.className = 'work-section';
+    section.dataset.category = cat;
+
+    const heading = document.createElement('h2');
+    heading.className = 'work-section-title';
+    heading.innerHTML = `${escapeHtml(cat)}<span class="count">${items.length}</span>`;
+    section.appendChild(heading);
+
+    const sectionGrid = document.createElement('div');
+    sectionGrid.className = 'work-section-grid';
+    items.forEach(({ project, index }) => sectionGrid.appendChild(buildProjectCard(project, index)));
+    section.appendChild(sectionGrid);
+
+    grid.appendChild(section);
+  });
+}
+
+function buildProjectCard(project, index) {
+  const card = document.createElement('div');
+  card.className = 'project-card';
+  card.dataset.index = index;
+  card.dataset.category = project.category || '';
+  card.tabIndex = 0;
+  card.setAttribute('role', 'button');
+  card.setAttribute('aria-label', `Preview ${project.title || 'project'}`);
+
+  const focus = project.focus || '50% 50%';
+
+  if (project.video) {
+    const video = document.createElement('video');
+    video.src = project.video;
+    video.poster = project.image || '';
+    video.muted = true;
+    video.loop = true;
+    video.playsInline = true;
+    video.preload = 'metadata';
+    video.style.objectPosition = focus;
+    video.onerror = () => {
+      video.remove();
+      if (project.image) {
+        const img = document.createElement('img');
+        img.src = project.image;
+        img.alt = project.title || '';
+        img.style.objectPosition = focus;
+        card.appendChild(img);
+      } else {
+        card.appendChild(buildPlaceholder());
+      }
+    };
+    card.appendChild(video);
+
+    card.addEventListener('mouseenter', () => {
+      video.currentTime = 0;
+      video.play().catch(() => {});
+    });
+    card.addEventListener('mouseleave', () => {
+      video.pause();
+      video.currentTime = 0;
+    });
+    // On touch devices, tap plays/pauses in place.
+    card.addEventListener('touchstart', () => {
+      if (video.paused) {
+        video.play().catch(() => {});
+      }
+    }, { passive: true });
+  } else if (project.image) {
+    const img = document.createElement('img');
+    img.src = project.image;
+    img.alt = project.title || '';
+    img.style.objectPosition = focus;
+    img.onerror = () => {
+      img.remove();
+      card.appendChild(buildPlaceholder(project.image));
+    };
+    card.appendChild(img);
+  } else {
+    card.appendChild(buildPlaceholder());
+  }
+
+  const overlay = document.createElement('div');
+  overlay.className = 'project-overlay';
+  overlay.innerHTML = `
+    <div class="p-title">${escapeHtml(project.title || 'Untitled')}</div>
+    <div class="p-category">${escapeHtml(project.category || '')}</div>
+  `;
+  card.appendChild(overlay);
+
+  // Click (or Enter/Space) opens the lightbox preview.
+  card.addEventListener('click', () => openLightbox(project));
+  card.addEventListener('keydown', (e) => {
+    if (e.key === 'Enter' || e.key === ' ') {
+      e.preventDefault();
+      openLightbox(project);
+    }
+  });
+
+  return card;
 }
 
 function buildPlaceholder(path) {
@@ -130,7 +159,7 @@ function getCategories() {
     .map(([name, count]) => ({ name, count }));
 }
 
-// ---------- Category preview (index.html "About" → Filming block) ----------
+// ---------- Category preview (about.html → Filming block) ----------
 // Clicking a category pill reveals an animated strip of thumbnails for that
 // category right there, no page jump, no dropdown. Clicking a thumbnail
 // opens that project's preview on the Work page.
@@ -179,7 +208,7 @@ function initCategoryPreview() {
 
       const more = document.createElement('a');
       more.className = 'category-preview-more';
-      more.href = `projects.html?category=${encodeURIComponent(name)}`;
+      more.href = `index.html?category=${encodeURIComponent(name)}`;
       more.textContent = 'See all in Work ↗';
       track.appendChild(more);
 
@@ -193,7 +222,7 @@ function initCategoryPreview() {
 function buildPreviewThumb(project, index) {
   const thumb = document.createElement('a');
   thumb.className = 'preview-thumb';
-  thumb.href = `projects.html?p=${index}`;
+  thumb.href = `index.html?p=${index}`;
   thumb.setAttribute('aria-label', `Open ${project.title || 'project'}`);
 
   const focus = project.focus || '50% 50%';
@@ -226,7 +255,7 @@ function buildPreviewThumb(project, index) {
   return thumb;
 }
 
-// ---------- Work filter pills (projects.html) ----------
+// ---------- Work filter pills (index.html) ----------
 // Same pill styling as the About preview, but here clicking a pill filters
 // the Work grid in place (fade transition) instead of opening a strip.
 function initWorkFilterPills() {
@@ -261,9 +290,9 @@ function initWorkFilterPills() {
     Object.values(pillsByName).forEach((p) => p.classList.remove('is-active'));
     (pillsByName[name] || allPill).classList.add('is-active');
 
-    document.querySelectorAll('#project-grid .project-card').forEach((card) => {
-      const match = name === 'all' || card.dataset.category === name;
-      card.classList.toggle('is-filtered-out', !match);
+    document.querySelectorAll('#project-grid .work-section').forEach((section) => {
+      const match = name === 'all' || section.dataset.category === name;
+      section.classList.toggle('is-filtered-out', !match);
     });
 
     const url = new URL(window.location.href);
@@ -282,7 +311,7 @@ function initWorkFilterPills() {
   }
 }
 
-// ---------- Deep link (projects.html?p=<index>) ----------
+// ---------- Deep link (index.html?p=<index>) ----------
 // Lets a thumbnail on the About page open the matching project directly.
 function handleDeepLink() {
   const params = new URLSearchParams(window.location.search);
