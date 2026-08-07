@@ -46,21 +46,31 @@ function initScrollReveal() {
 // ---------- Reel parallax (index.html hero banner) ----------
 // The video moves slightly slower than the page scroll, giving it a
 // sense of depth instead of scrolling 1:1 with the rest of the content.
+// The title lags even more, so it visibly slides down and fades away
+// as you start scrolling into the page.
 function initReelParallax() {
   const reel = document.querySelector('.reel');
   const video = document.querySelector('.reel-video');
+  const overlay = document.querySelector('.reel-overlay');
   if (!reel || !video) return;
   if (window.matchMedia('(prefers-reduced-motion: reduce)').matches) return;
 
   const speed = 0.3;
-  const initialTop = reel.getBoundingClientRect().top;
+  const titleSpeed = 0.55;
   let ticking = false;
 
   function update() {
-    const delta = reel.getBoundingClientRect().top - initialTop;
-    video.style.transform = `translateY(${-delta * speed}px)`;
+    const y = window.scrollY;
+    video.style.transform = `translateY(${y * speed}px)`;
+    if (overlay) {
+      const shift = y * titleSpeed;
+      overlay.style.transform = `translateY(${shift}px)`;
+      overlay.style.opacity = Math.max(0, 1 - shift / (reel.offsetHeight * 0.6));
+    }
     ticking = false;
   }
+
+  update();
 
   window.addEventListener('scroll', () => {
     if (!ticking) {
