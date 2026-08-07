@@ -204,7 +204,7 @@ a { color: inherit; text-decoration: none; }
 
 /* ---------- ABOUT ---------- */
 .about {
-  padding: 3rem clamp(1.5rem, 5vw, 4rem) 6rem;
+  padding: 3rem clamp(1.5rem, 5vw, 4rem) 1rem;
 }
 
 .about-intro {
@@ -405,7 +405,7 @@ a { color: inherit; text-decoration: none; }
 
 /* ---------- WORK / PROJECT STACK (full-bleed editorial) ---------- */
 .work {
-  padding: 6rem 0;
+  padding: 2rem 0;
   border-bottom: 1px solid var(--border);
 }
 
