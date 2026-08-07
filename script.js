@@ -19,6 +19,30 @@ if (document.getElementById('category-pills')) {
   initCategoryPreview();
 }
 
+initScrollReveal();
+
+// ---------- Scroll reveal (About / Work / Contact fade up into view) ----------
+function initScrollReveal() {
+  const targets = document.querySelectorAll('.reveal');
+  if (!targets.length) return;
+
+  if (!('IntersectionObserver' in window) || window.matchMedia('(prefers-reduced-motion: reduce)').matches) {
+    targets.forEach((el) => el.classList.add('is-visible'));
+    return;
+  }
+
+  const observer = new IntersectionObserver((entries) => {
+    entries.forEach((entry) => {
+      if (entry.isIntersecting) {
+        entry.target.classList.add('is-visible');
+        observer.unobserve(entry.target);
+      }
+    });
+  }, { threshold: 0.12, rootMargin: '0px 0px -80px 0px' });
+
+  targets.forEach((el) => observer.observe(el));
+}
+
 // ---------- Reel parallax (index.html hero banner) ----------
 // The video moves slightly slower than the page scroll, giving it a
 // sense of depth instead of scrolling 1:1 with the rest of the content.
