@@ -12,8 +12,39 @@ if (document.getElementById('project-grid')) {
   handleDeepLink();
 }
 
+if (document.querySelector('.reel')) {
+  initReelParallax();
+}
+
 if (document.getElementById('category-pills')) {
   initCategoryPreview();
+}
+
+// ---------- Reel parallax (index.html hero banner) ----------
+// The video moves slightly slower than the page scroll, giving it a
+// sense of depth instead of scrolling 1:1 with the rest of the content.
+function initReelParallax() {
+  const reel = document.querySelector('.reel');
+  const video = document.querySelector('.reel-video');
+  if (!reel || !video) return;
+  if (window.matchMedia('(prefers-reduced-motion: reduce)').matches) return;
+
+  const speed = 0.3;
+  const initialTop = reel.getBoundingClientRect().top;
+  let ticking = false;
+
+  function update() {
+    const delta = reel.getBoundingClientRect().top - initialTop;
+    video.style.transform = `translateY(${-delta * speed}px)`;
+    ticking = false;
+  }
+
+  window.addEventListener('scroll', () => {
+    if (!ticking) {
+      requestAnimationFrame(update);
+      ticking = true;
+    }
+  }, { passive: true });
 }
 
 // Work grid is grouped into one section per category (large heading +

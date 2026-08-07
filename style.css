@@ -98,6 +98,7 @@ a { color: inherit; text-decoration: none; }
   height: 62vh;
   min-height: 340px;
   border-bottom: 1px solid var(--border);
+  overflow: hidden;
 }
 
 .reel::after {
@@ -113,14 +114,16 @@ a { color: inherit; text-decoration: none; }
 }
 
 .reel-video {
-  position: fixed;
-  inset: 0;
-  width: 100vw;
-  height: 100vh;
+  position: absolute;
+  left: 0;
+  top: -20%;
+  width: 100%;
+  height: 140%;
   object-fit: cover;
   display: block;
   filter: brightness(0.55);
   z-index: -1;
+  will-change: transform;
 }
 
 .reel-overlay {
