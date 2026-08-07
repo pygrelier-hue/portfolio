@@ -11,5 +11,5 @@ const PROJECTS = [
   { "title": "BIGS", "category": "Corporate events", "image": "images/bigs.jpg", "video": "videos/bigs.mp4", "link": "", "focus": "50% 60%" },
   { "title": "Worldef", "category": "Corporate events", "image": "images/worldef.jpg", "video": "videos/worldef.mp4", "link": "", "focus": "50% 48%" },
   { "title": "Book Reading — Abu Dhabi", "category": "Corporate events", "image": "images/book-reading.jpg", "video": "videos/book-reading.mp4", "link": "", "focus": "45% 35%" },
-  { "title": "Rightfit", "category": "Rightfit", "image": "images/rightfit-mashup.jpg", "video": "videos/rightfit-mashup.mp4", "link": "", "focus": "50% 40%" }
+  { "title": "Rightfit", "category": "Rightfit", "image": "images/rightfit-mashup.jpg", "video": "videos/rightfit-mashup.mp4", "link": "", "focus": "50% 50%" }
 ];
