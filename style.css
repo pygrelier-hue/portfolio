@@ -100,6 +100,18 @@ a { color: inherit; text-decoration: none; }
   border-bottom: 1px solid var(--border);
 }
 
+.reel::after {
+  content: '';
+  position: absolute;
+  left: 0;
+  right: 0;
+  bottom: 0;
+  height: 40%;
+  background: linear-gradient(to bottom, transparent, var(--bg));
+  pointer-events: none;
+  z-index: 0;
+}
+
 .reel-video {
   position: fixed;
   inset: 0;
@@ -116,6 +128,7 @@ a { color: inherit; text-decoration: none; }
   left: clamp(1.5rem, 5vw, 4rem);
   bottom: 2.5rem;
   right: clamp(1.5rem, 5vw, 4rem);
+  z-index: 1;
 }
 
 .reel-overlay h1 {
