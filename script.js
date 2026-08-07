@@ -47,39 +47,16 @@ function initReelParallax() {
   }, { passive: true });
 }
 
-// Work grid is grouped into one section per category (large heading +
-// a row of square thumbnails), so visitors can scan by category instead
-// of hunting through one mixed mosaic.
+// Work grid is one flat mosaic (no category headings) so thumbnails stay
+// large and there's no leftover empty space from a half-filled row.
 function renderProjects(projects) {
   const grid = document.getElementById('project-grid');
   grid.innerHTML = '';
 
-  const sections = new Map();
-  projects.forEach((project, index) => {
-    const cat = project.category || 'Other';
-    if (!sections.has(cat)) sections.set(cat, []);
-    sections.get(cat).push({ project, index });
-  });
-
-  [...sections.keys()].sort((a, b) => a.localeCompare(b)).forEach((cat) => {
-    const items = sections.get(cat);
-
-    const section = document.createElement('section');
-    section.className = 'work-section';
-    section.dataset.category = cat;
-
-    const heading = document.createElement('h2');
-    heading.className = 'work-section-title';
-    heading.innerHTML = `${escapeHtml(cat)}<span class="count">${items.length}</span>`;
-    section.appendChild(heading);
-
-    const sectionGrid = document.createElement('div');
-    sectionGrid.className = 'work-section-grid';
-    items.forEach(({ project, index }) => sectionGrid.appendChild(buildProjectCard(project, index)));
-    section.appendChild(sectionGrid);
-
-    grid.appendChild(section);
-  });
+  const sectionGrid = document.createElement('div');
+  sectionGrid.className = 'work-section-grid';
+  projects.forEach((project, index) => sectionGrid.appendChild(buildProjectCard(project, index)));
+  grid.appendChild(sectionGrid);
 }
 
 function buildProjectCard(project, index) {
@@ -146,10 +123,7 @@ function buildProjectCard(project, index) {
 
   const overlay = document.createElement('div');
   overlay.className = 'project-overlay';
-  overlay.innerHTML = `
-    <div class="p-title">${escapeHtml(project.title || 'Untitled')}</div>
-    <div class="p-category">${escapeHtml(project.category || '')}</div>
-  `;
+  overlay.innerHTML = `<div class="p-title">${escapeHtml(project.title || 'Untitled')}</div>`;
   card.appendChild(overlay);
 
   // Click (or Enter/Space) opens the lightbox preview.
@@ -321,9 +295,9 @@ function initWorkFilterPills() {
     Object.values(pillsByName).forEach((p) => p.classList.remove('is-active'));
     (pillsByName[name] || allPill).classList.add('is-active');
 
-    document.querySelectorAll('#project-grid .work-section').forEach((section) => {
-      const match = name === 'all' || section.dataset.category === name;
-      section.classList.toggle('is-filtered-out', !match);
+    document.querySelectorAll('#project-grid .project-card').forEach((card) => {
+      const match = name === 'all' || card.dataset.category === name;
+      card.classList.toggle('is-filtered-out', !match);
     });
 
     const url = new URL(window.location.href);
