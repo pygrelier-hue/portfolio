@@ -95,13 +95,30 @@
 
     <section id="contact" class="contact reveal">
       <h2 class="section-title">Contact</h2>
-      <a class="contact-email" href="mailto:pygrelier@icloud.com">pygrelier@icloud.com</a>
-      <div class="contact-links">
-        <a href="#" data-placeholder="portfolio">Video portfolio</a>
-        <a href="#" data-placeholder="instagram">Instagram / TikTok</a>
-        <a href="#" data-placeholder="linkedin">LinkedIn</a>
+      <p class="contact-lede">Got an idea? Let's create something together.</p>
+
+      <form class="contact-form" id="contact-form">
+        <label for="cf-name">Name</label>
+        <input type="text" id="cf-name" name="name" placeholder="Name" required>
+
+        <label for="cf-email">Email</label>
+        <input type="email" id="cf-email" name="email" placeholder="Email" required>
+
+        <label for="cf-message">Message</label>
+        <textarea id="cf-message" name="message" placeholder="Message" rows="6" required></textarea>
+
+        <button type="submit" class="contact-submit">Send</button>
+      </form>
+
+      <div class="contact-fallback">
+        <a class="contact-email" href="mailto:pygrelier@icloud.com">pygrelier@icloud.com</a>
+        <div class="contact-links">
+          <a href="#" data-placeholder="portfolio">Video portfolio</a>
+          <a href="#" data-placeholder="instagram">Instagram / TikTok</a>
+          <a href="#" data-placeholder="linkedin">LinkedIn</a>
+        </div>
+        <p class="contact-note">Available immediately · Dubai + travel across the UAE</p>
       </div>
-      <p class="contact-note">Available immediately · Dubai + travel across the UAE</p>
     </section>
   </main>
 

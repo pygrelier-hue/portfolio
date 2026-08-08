@@ -19,7 +19,29 @@ if (document.getElementById('category-pills')) {
   initCategoryPreview();
 }
 
+if (document.getElementById('contact-form')) {
+  initContactForm();
+}
+
 initScrollReveal();
+
+// ---------- Contact form (opens the visitor's email app, pre-filled) ----------
+// The site is static (no server), so submissions can't be processed directly —
+// this builds a mailto: link from the form fields instead.
+function initContactForm() {
+  const form = document.getElementById('contact-form');
+
+  form.addEventListener('submit', (e) => {
+    e.preventDefault();
+    const name = form.name.value.trim();
+    const email = form.email.value.trim();
+    const message = form.message.value.trim();
+
+    const subject = encodeURIComponent(`New project inquiry from ${name}`);
+    const body = encodeURIComponent(`${message}\n\n— ${name} (${email})`);
+    window.location.href = `mailto:pygrelier@icloud.com?subject=${subject}&body=${body}`;
+  });
+}
 
 // ---------- Scroll reveal (About / Work / Contact fade up into view) ----------
 function initScrollReveal() {
