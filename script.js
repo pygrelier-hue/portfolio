@@ -5,6 +5,8 @@
 // pills + lightbox — every function checks the DOM elements it needs exist
 // before doing anything.
 
+let currentLang = localStorage.getItem('pyg-lang') === 'fr' ? 'fr' : 'en';
+
 if (document.getElementById('project-grid')) {
   renderProjects(PROJECTS);
   initLightbox();
@@ -23,7 +25,77 @@ if (document.getElementById('contact-form')) {
   initContactForm();
 }
 
+initLangToggle();
+applyTranslations();
+
 initScrollReveal();
+
+// ---------- Language toggle (EN / FR) ----------
+// Translation strings live in i18n.js (I18N.en / I18N.fr). Static markup is
+// tagged with data-i18n / data-i18n-placeholder; dynamically-built content
+// (category pills, lightbox category, "See all" button) is re-labeled in
+// refreshDynamicLabels() since it isn't in the DOM at page-load time.
+function t(key) {
+  return (I18N[currentLang] && I18N[currentLang][key]) || I18N.en[key] || key;
+}
+
+function categoryLabel(name) {
+  return t(`category.${name}`);
+}
+
+function initLangToggle() {
+  document.querySelectorAll('.lang-toggle').forEach((btn) => {
+    btn.addEventListener('click', () => {
+      if (btn.dataset.lang === currentLang) return;
+      currentLang = btn.dataset.lang;
+      localStorage.setItem('pyg-lang', currentLang);
+      applyTranslations();
+    });
+  });
+}
+
+function applyTranslations() {
+  document.documentElement.lang = currentLang;
+
+  document.querySelectorAll('[data-i18n]').forEach((el) => {
+    el.textContent = t(el.dataset.i18n);
+  });
+  document.querySelectorAll('[data-i18n-placeholder]').forEach((el) => {
+    el.placeholder = t(el.dataset.i18nPlaceholder);
+  });
+  document.querySelectorAll('.lang-toggle').forEach((btn) => {
+    btn.classList.toggle('is-active', btn.dataset.lang === currentLang);
+  });
+
+  refreshDynamicLabels();
+}
+
+function refreshDynamicLabels() {
+  document.querySelectorAll('.category-pill').forEach(setPillLabel);
+
+  document.querySelectorAll('.category-preview-more').forEach((btn) => {
+    btn.textContent = t('work.seeAll');
+  });
+
+  const lightboxCategory = document.querySelector('.lightbox-category');
+  if (lightboxCategory && lightboxCategory.dataset.category) {
+    lightboxCategory.textContent = categoryLabel(lightboxCategory.dataset.category);
+  }
+
+  document.querySelectorAll('.project-card[data-title]').forEach((card) => {
+    card.setAttribute('aria-label', `${t('work.previewAria')} ${card.dataset.title}`);
+  });
+  document.querySelectorAll('.preview-thumb[data-title]').forEach((thumb) => {
+    thumb.setAttribute('aria-label', `${t('work.openAria')} ${thumb.dataset.title}`);
+  });
+}
+
+function setPillLabel(pill) {
+  const cat = pill.dataset.category;
+  if (cat === undefined) return;
+  const label = cat === 'all' ? t('work.all') : categoryLabel(cat);
+  pill.innerHTML = `${escapeHtml(label)}<span class="count">${pill.dataset.count || ''}</span>`;
+}
 
 // ---------- Contact form (opens the visitor's email app, pre-filled) ----------
 // The site is static (no server), so submissions can't be processed directly —
@@ -121,7 +193,8 @@ function buildProjectCard(project, index) {
   card.dataset.category = project.category || '';
   card.tabIndex = 0;
   card.setAttribute('role', 'button');
-  card.setAttribute('aria-label', `Preview ${project.title || 'project'}`);
+  card.dataset.title = project.title || 'project';
+  card.setAttribute('aria-label', `${t('work.previewAria')} ${card.dataset.title}`);
 
   const focus = project.focus || '50% 50%';
 
@@ -237,8 +310,10 @@ function initCategoryPreview() {
     const pill = document.createElement('button');
     pill.type = 'button';
     pill.className = 'category-pill';
+    pill.dataset.category = name;
+    pill.dataset.count = count;
     pill.setAttribute('aria-pressed', 'false');
-    pill.innerHTML = `${escapeHtml(name)}<span class="count">${count}</span>`;
+    setPillLabel(pill);
 
     pill.addEventListener('click', () => {
       if (activeCategory === name) {
@@ -270,7 +345,7 @@ function initCategoryPreview() {
       const more = document.createElement('button');
       more.type = 'button';
       more.className = 'category-preview-more';
-      more.textContent = 'See all in Work ↗';
+      more.textContent = t('work.seeAll');
       more.addEventListener('click', () => {
         const pill = document.querySelector(`#work-filter-pills .category-pill[data-category="${CSS.escape(name)}"]`);
         if (pill) pill.click();
@@ -290,7 +365,8 @@ function buildPreviewThumb(project, index) {
   thumb.className = 'preview-thumb';
   thumb.tabIndex = 0;
   thumb.setAttribute('role', 'button');
-  thumb.setAttribute('aria-label', `Open ${project.title || 'project'}`);
+  thumb.dataset.title = project.title || 'project';
+  thumb.setAttribute('aria-label', `${t('work.openAria')} ${thumb.dataset.title}`);
 
   const openProject = () => {
     const card = document.querySelector(`#project-grid .project-card[data-index="${index}"]`);
@@ -350,7 +426,8 @@ function initWorkFilterPills() {
   allPill.type = 'button';
   allPill.className = 'category-pill';
   allPill.dataset.category = 'all';
-  allPill.innerHTML = `All<span class="count">${PROJECTS.length}</span>`;
+  allPill.dataset.count = PROJECTS.length;
+  setPillLabel(allPill);
   wrap.appendChild(allPill);
 
   const pillsByName = { all: allPill };
@@ -360,7 +437,8 @@ function initWorkFilterPills() {
     pill.type = 'button';
     pill.className = 'category-pill';
     pill.dataset.category = name;
-    pill.innerHTML = `${escapeHtml(name)}<span class="count">${count}</span>`;
+    pill.dataset.count = count;
+    setPillLabel(pill);
     pill.addEventListener('click', () => applyWorkFilter(name));
     wrap.appendChild(pill);
     pillsByName[name] = pill;
@@ -436,7 +514,8 @@ function openLightbox(project) {
   }
 
   title.textContent = project.title || 'Untitled';
-  category.textContent = project.category || '';
+  category.dataset.category = project.category || '';
+  category.textContent = project.category ? categoryLabel(project.category) : '';
 
   if (project.link) {
     link.href = project.link;
