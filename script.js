@@ -589,10 +589,18 @@ function openLightbox(project) {
     linksList.hidden = true;
     linksList.innerHTML = '';
     if (project.link) {
-      link.href = project.link;
       link.hidden = false;
+      const linkId = youtubeId(project.link);
+      link.onclick = () => {
+        if (linkId) {
+          renderLightboxYoutube(linkId);
+        } else {
+          window.open(project.link, '_blank', 'noopener');
+        }
+      };
     } else {
       link.hidden = true;
+      link.onclick = null;
     }
   }
 

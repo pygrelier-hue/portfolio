@@ -644,10 +644,17 @@ html[lang="fr"] .project-card::after {
 }
 
 .lightbox-link {
+  appearance: none;
+  -webkit-appearance: none;
+  background: none;
+  border: none;
+  border-bottom: 1px solid var(--border);
+  font-family: var(--font-body);
   font-size: 0.85rem;
   color: var(--text-dim);
-  border-bottom: 1px solid var(--border);
   white-space: nowrap;
+  cursor: pointer;
+  padding: 0;
 }
 
 .lightbox-link:hover { color: var(--text); border-color: var(--text); }
