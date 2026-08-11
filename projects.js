@@ -3,7 +3,17 @@
 // IMPORTANT: keep the "const PROJECTS = [ ... ];" wrapper, only edit what's inside the [ ].
 
 const PROJECTS = [
-  { "title": "Rightfit", "category": "Fitness", "image": "images/rightfit-mashup.jpg", "video": "videos/rightfit-mashup.mp4", "link": "", "focus": "0% 50%" },
+  { "title": "Rightfit", "category": "Fitness", "image": "images/rightfit-mashup.jpg", "video": "videos/rightfit-mashup.mp4", "link": "", "links": [
+    "https://www.youtube.com/shorts/oSI3Cy35pxA",
+    "https://www.youtube.com/shorts/tEO2OZ68P-8",
+    "https://www.youtube.com/shorts/qjWpyhGdoaI",
+    "https://www.youtube.com/shorts/L2mBZQbToQs",
+    "https://www.youtube.com/shorts/qLy66n5goQE",
+    "https://www.youtube.com/shorts/JknQtCqQRV8",
+    "https://www.youtube.com/shorts/JOvVMhRE4UI",
+    "https://www.youtube.com/shorts/3nplO_oJ6hA",
+    "https://www.youtube.com/shorts/WXRk1n3znro"
+  ], "focus": "0% 50%" },
   { "title": "ADIB", "category": "Corporate events", "image": "images/adib.jpg", "video": "videos/adib.mp4", "link": "", "focus": "70% 45%" },
   { "title": "BIGS", "category": "Corporate events", "image": "images/bigs.jpg", "video": "videos/bigs.mp4", "link": "", "focus": "50% 60%" },
   { "title": "Worldef", "category": "Corporate events", "image": "images/worldef.jpg", "video": "videos/worldef.mp4", "link": "", "focus": "50% 48%" },

@@ -653,6 +653,47 @@ html[lang="fr"] .project-card::after {
 .lightbox-link:hover { color: var(--text); border-color: var(--text); }
 .lightbox-link[hidden] { display: none; }
 
+.lightbox-links {
+  display: flex;
+  flex-wrap: wrap;
+  gap: 0.6rem;
+  padding: 0 1.5rem 1.2rem;
+}
+
+.lightbox-links[hidden] { display: none; }
+
+.lightbox-link-pill {
+  font-family: var(--font-body);
+  font-size: 0.8rem;
+  color: var(--text-dim);
+  background: transparent;
+  border: 1px solid var(--border);
+  border-radius: 999px;
+  padding: 0.4rem 0.9rem;
+  white-space: nowrap;
+  cursor: pointer;
+  transition: color 0.2s ease, border-color 0.2s ease, background 0.2s ease;
+}
+
+.lightbox-link-pill:hover { color: var(--text); border-color: var(--accent); }
+
+.lightbox-link-pill.is-active {
+  color: var(--bg);
+  background: var(--accent);
+  border-color: var(--accent);
+}
+
+.lightbox-youtube {
+  display: block;
+  width: auto;
+  height: 70vh;
+  max-height: 70vh;
+  max-width: 100%;
+  aspect-ratio: 9 / 16;
+  border: 0;
+  margin: 0 auto;
+}
+
 .lightbox-close {
   position: absolute;
   top: 0.6rem;

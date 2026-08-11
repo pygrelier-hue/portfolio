@@ -88,6 +88,12 @@ function refreshDynamicLabels() {
   document.querySelectorAll('.preview-thumb[data-title]').forEach((thumb) => {
     thumb.setAttribute('aria-label', `${t('work.openAria')} ${thumb.dataset.title}`);
   });
+
+  document.querySelectorAll('.lightbox-links .lightbox-link-pill[data-index]').forEach((btn) => {
+    btn.textContent = `${t('work.watchVideo')} ${Number(btn.dataset.index) + 1}`;
+  });
+  const mashupBtn = document.querySelector('.lightbox-links .lightbox-link-pill:not([data-index])');
+  if (mashupBtn) mashupBtn.textContent = t('work.mashup');
 }
 
 function setPillLabel(pill) {
@@ -486,15 +492,15 @@ function initLightbox() {
   });
 }
 
-function openLightbox(project) {
-  const lightbox = document.getElementById('lightbox');
-  if (!lightbox) return;
+// Extracts the video ID from a youtube.com/shorts/, youtu.be/ or
+// youtube.com/watch?v= URL so it can be embedded instead of linked out to.
+function youtubeId(url) {
+  const match = url.match(/(?:shorts\/|watch\?v=|youtu\.be\/)([a-zA-Z0-9_-]{6,})/);
+  return match ? match[1] : null;
+}
 
-  const media = lightbox.querySelector('.lightbox-media');
-  const title = lightbox.querySelector('.lightbox-title');
-  const category = lightbox.querySelector('.lightbox-category');
-  const link = lightbox.querySelector('.lightbox-link');
-
+function renderLightboxMashup(project) {
+  const media = document.querySelector('.lightbox-media');
   media.innerHTML = '';
 
   if (project.video) {
@@ -512,16 +518,83 @@ function openLightbox(project) {
     img.alt = project.title || '';
     media.appendChild(img);
   }
+}
+
+function renderLightboxYoutube(id) {
+  const media = document.querySelector('.lightbox-media');
+  media.innerHTML = '';
+
+  const iframe = document.createElement('iframe');
+  iframe.className = 'lightbox-youtube';
+  iframe.src = `https://www.youtube.com/embed/${id}?autoplay=1&rel=0`;
+  iframe.allow = 'autoplay; encrypted-media; picture-in-picture';
+  iframe.allowFullscreen = true;
+  iframe.setAttribute('frameborder', '0');
+  media.appendChild(iframe);
+}
+
+function openLightbox(project) {
+  const lightbox = document.getElementById('lightbox');
+  if (!lightbox) return;
+
+  const title = lightbox.querySelector('.lightbox-title');
+  const category = lightbox.querySelector('.lightbox-category');
+  const link = lightbox.querySelector('.lightbox-link');
+  const linksList = lightbox.querySelector('.lightbox-links');
+
+  renderLightboxMashup(project);
 
   title.textContent = project.title || 'Untitled';
   category.dataset.category = project.category || '';
   category.textContent = project.category ? categoryLabel(project.category) : '';
 
-  if (project.link) {
-    link.href = project.link;
-    link.hidden = false;
-  } else {
+  if (project.links && project.links.length) {
     link.hidden = true;
+    linksList.innerHTML = '';
+    linksList.hidden = false;
+
+    const setActive = (btn) => {
+      linksList.querySelectorAll('button').forEach((b) => b.classList.remove('is-active'));
+      btn.classList.add('is-active');
+    };
+
+    const mashupBtn = document.createElement('button');
+    mashupBtn.type = 'button';
+    mashupBtn.className = 'lightbox-link-pill is-active';
+    mashupBtn.textContent = t('work.mashup');
+    mashupBtn.addEventListener('click', () => {
+      renderLightboxMashup(project);
+      setActive(mashupBtn);
+    });
+    linksList.appendChild(mashupBtn);
+
+    project.links.forEach((url, i) => {
+      const id = youtubeId(url);
+      const btn = document.createElement('button');
+      btn.type = 'button';
+      btn.className = 'lightbox-link-pill';
+      btn.dataset.index = i;
+      btn.textContent = `${t('work.watchVideo')} ${i + 1}`;
+      btn.addEventListener('click', () => {
+        if (id) {
+          renderLightboxYoutube(id);
+        } else {
+          window.open(url, '_blank', 'noopener');
+          return;
+        }
+        setActive(btn);
+      });
+      linksList.appendChild(btn);
+    });
+  } else {
+    linksList.hidden = true;
+    linksList.innerHTML = '';
+    if (project.link) {
+      link.href = project.link;
+      link.hidden = false;
+    } else {
+      link.hidden = true;
+    }
   }
 
   lightbox.classList.add('is-open');

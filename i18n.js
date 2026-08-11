@@ -36,6 +36,8 @@ const I18N = {
     'work.all': 'All',
     'work.seeAll': 'See all in Work ↗',
     'work.watchFull': 'Watch full video ↗',
+    'work.watchVideo': 'Video',
+    'work.mashup': 'Mashup',
     'work.previewAria': 'Preview',
     'work.openAria': 'Open',
 
@@ -86,6 +88,8 @@ const I18N = {
     'work.all': 'Tous',
     'work.seeAll': 'Voir tout dans Travaux ↗',
     'work.watchFull': 'Voir la vidéo complète ↗',
+    'work.watchVideo': 'Vidéo',
+    'work.mashup': 'Mashup',
     'work.previewAria': 'Aperçu de',
     'work.openAria': 'Ouvrir',
 
