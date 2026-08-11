@@ -12,7 +12,8 @@ const PROJECTS = [
     "https://www.youtube.com/shorts/JknQtCqQRV8",
     "https://www.youtube.com/shorts/JOvVMhRE4UI",
     "https://www.youtube.com/shorts/3nplO_oJ6hA",
-    "https://www.youtube.com/shorts/WXRk1n3znro"
+    "https://www.youtube.com/shorts/WXRk1n3znro",
+    "https://www.youtube.com/shorts/CJ38i0lrSuQ"
   ], "focus": "0% 50%" },
   { "title": "ADIB", "category": "Corporate events", "image": "images/adib.jpg", "video": "videos/adib.mp4", "link": "", "focus": "70% 45%" },
   { "title": "BIGS", "category": "Corporate events", "image": "images/bigs.jpg", "video": "videos/bigs.mp4", "link": "", "focus": "50% 60%" },
