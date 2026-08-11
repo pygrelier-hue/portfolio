@@ -584,12 +584,13 @@ html[lang="fr"] .project-card::after {
 .lightbox-panel {
   position: relative;
   z-index: 1;
-  max-width: min(90vw, 900px);
-  max-height: 90vh;
+  max-width: min(94vw, 1200px);
+  max-height: 94vh;
   background: var(--bg-alt);
   border: 1px solid var(--border);
   border-radius: 0;
-  overflow: hidden;
+  overflow-y: auto;
+  overflow-x: hidden;
   display: flex;
   flex-direction: column;
   transform: scale(0.96);
@@ -607,14 +608,14 @@ html[lang="fr"] .project-card::after {
   display: flex;
   align-items: center;
   justify-content: center;
-  max-height: 70vh;
+  max-height: 78vh;
 }
 
 .lightbox-media img,
 .lightbox-media video {
   display: block;
   width: 100%;
-  max-height: 70vh;
+  max-height: 78vh;
   object-fit: contain;
 }
 
@@ -711,7 +712,7 @@ html[lang="fr"] .project-card::after {
 
 .lightbox-youtube {
   display: block;
-  max-height: 70vh;
+  max-height: 78vh;
   max-width: 100%;
   border: 0;
   margin: 0 auto;
@@ -719,12 +720,12 @@ html[lang="fr"] .project-card::after {
 
 .lightbox-youtube.is-portrait {
   width: auto;
-  height: 70vh;
+  height: 78vh;
   aspect-ratio: 9 / 16;
 }
 
 .lightbox-youtube.is-landscape {
-  width: 100%;
+  width: min(94vw, 1200px);
   height: auto;
   aspect-ratio: 16 / 9;
 }

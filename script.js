@@ -534,7 +534,11 @@ function renderLightboxYoutube(id, sourceUrl) {
 
   media.appendChild(iframe);
 
-  fetch(`https://www.youtube.com/oembed?url=${encodeURIComponent(`https://www.youtube.com/watch?v=${id}`)}&format=json`)
+  // YouTube's oEmbed endpoint only reports the real (portrait) dimensions
+  // when queried with the original /shorts/ URL — a watch?v= URL for the
+  // same video always reports its default 200x113 landscape embed size.
+  const oembedTarget = sourceUrl || `https://www.youtube.com/watch?v=${id}`;
+  fetch(`https://www.youtube.com/oembed?url=${encodeURIComponent(oembedTarget)}&format=json`)
     .then((res) => res.json())
     .then((data) => {
       if (!data.width || !data.height || !media.contains(iframe)) return;
