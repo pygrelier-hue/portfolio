@@ -711,13 +711,22 @@ html[lang="fr"] .project-card::after {
 
 .lightbox-youtube {
   display: block;
-  width: auto;
-  height: 70vh;
   max-height: 70vh;
   max-width: 100%;
-  aspect-ratio: 9 / 16;
   border: 0;
   margin: 0 auto;
+}
+
+.lightbox-youtube.is-portrait {
+  width: auto;
+  height: 70vh;
+  aspect-ratio: 9 / 16;
+}
+
+.lightbox-youtube.is-landscape {
+  width: 100%;
+  height: auto;
+  aspect-ratio: 16 / 9;
 }
 
 .lightbox-close {

@@ -514,7 +514,11 @@ function renderLightboxMashup(project) {
   }
 }
 
-function renderLightboxYoutube(id) {
+// Sizes the embed as landscape or portrait to match the actual video,
+// instead of forcing every embed into one fixed shape. A quick heuristic
+// (shorts URLs are vertical) avoids a layout jump while the real
+// dimensions load from the oEmbed API, which then corrects it if needed.
+function renderLightboxYoutube(id, sourceUrl) {
   const media = document.querySelector('.lightbox-media');
   media.innerHTML = '';
 
@@ -524,7 +528,22 @@ function renderLightboxYoutube(id) {
   iframe.allow = 'autoplay; encrypted-media; picture-in-picture';
   iframe.allowFullscreen = true;
   iframe.setAttribute('frameborder', '0');
+
+  const looksVertical = sourceUrl && sourceUrl.includes('/shorts/');
+  iframe.classList.add(looksVertical ? 'is-portrait' : 'is-landscape');
+
   media.appendChild(iframe);
+
+  fetch(`https://www.youtube.com/oembed?url=${encodeURIComponent(`https://www.youtube.com/watch?v=${id}`)}&format=json`)
+    .then((res) => res.json())
+    .then((data) => {
+      if (!data.width || !data.height || !media.contains(iframe)) return;
+      const isPortrait = data.height > data.width;
+      iframe.classList.toggle('is-portrait', isPortrait);
+      iframe.classList.toggle('is-landscape', !isPortrait);
+      iframe.style.aspectRatio = `${data.width} / ${data.height}`;
+    })
+    .catch(() => {});
 }
 
 function openLightbox(project) {
@@ -576,7 +595,7 @@ function openLightbox(project) {
 
       btn.addEventListener('click', () => {
         if (id) {
-          renderLightboxYoutube(id);
+          renderLightboxYoutube(id, url);
         } else {
           window.open(url, '_blank', 'noopener');
           return;
@@ -603,7 +622,7 @@ function openLightbox(project) {
     const linkId = youtubeId(project.link);
     if (linkId) {
       link.hidden = true;
-      renderLightboxYoutube(linkId);
+      renderLightboxYoutube(linkId, project.link);
     } else {
       link.hidden = false;
       link.onclick = () => window.open(project.link, '_blank', 'noopener');
