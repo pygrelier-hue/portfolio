@@ -536,8 +536,6 @@ function openLightbox(project) {
   const link = lightbox.querySelector('.lightbox-link');
   const linksList = lightbox.querySelector('.lightbox-links');
 
-  renderLightboxMashup(project);
-
   title.textContent = project.title || 'Untitled';
   category.dataset.category = project.category || '';
   category.textContent = project.category ? categoryLabel(project.category) : '';
@@ -551,6 +549,8 @@ function openLightbox(project) {
       linksList.querySelectorAll('button').forEach((b) => b.classList.remove('is-active'));
       btn.classList.add('is-active');
     };
+
+    let firstPlayable = null;
 
     project.links.forEach((entry, i) => {
       const url = entry.url || entry;
@@ -584,24 +584,37 @@ function openLightbox(project) {
         setActive(btn);
       });
       linksList.appendChild(btn);
+
+      if (!firstPlayable && id) firstPlayable = btn;
     });
+
+    // Play the first video right away instead of showing the local
+    // preview clip again — the visitor already saw that on the thumbnail.
+    if (firstPlayable) {
+      firstPlayable.click();
+    } else {
+      renderLightboxMashup(project);
+    }
+  } else if (project.link) {
+    linksList.hidden = true;
+    linksList.innerHTML = '';
+    link.onclick = null;
+
+    const linkId = youtubeId(project.link);
+    if (linkId) {
+      link.hidden = true;
+      renderLightboxYoutube(linkId);
+    } else {
+      link.hidden = false;
+      link.onclick = () => window.open(project.link, '_blank', 'noopener');
+      renderLightboxMashup(project);
+    }
   } else {
     linksList.hidden = true;
     linksList.innerHTML = '';
-    if (project.link) {
-      link.hidden = false;
-      const linkId = youtubeId(project.link);
-      link.onclick = () => {
-        if (linkId) {
-          renderLightboxYoutube(linkId);
-        } else {
-          window.open(project.link, '_blank', 'noopener');
-        }
-      };
-    } else {
-      link.hidden = true;
-      link.onclick = null;
-    }
+    link.hidden = true;
+    link.onclick = null;
+    renderLightboxMashup(project);
   }
 
   lightbox.classList.add('is-open');
