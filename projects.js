@@ -14,7 +14,7 @@ const PROJECTS = [
     { "url": "https://www.youtube.com/shorts/CJ38i0lrSuQ", "title": "Enas Client's Testimony" }
   ], "focus": "0% 50%" },
   { "title": "ADIB", "category": "Corporate events", "image": "images/adib.jpg", "video": "videos/adib.mp4", "link": "https://youtu.be/nLECWvWSA0o", "focus": "70% 45%" },
-  { "title": "BIGS", "category": "Corporate events", "image": "images/bigs.jpg", "video": "videos/bigs.mp4", "link": "", "focus": "50% 60%" },
+  { "title": "BIGS", "category": "Corporate events", "image": "images/bigs.jpg", "video": "videos/bigs.mp4", "link": "https://youtu.be/8POruOKmwXw", "focus": "50% 60%" },
   { "title": "Worldef", "category": "Corporate events", "image": "images/worldef.jpg", "video": "videos/worldef.mp4", "link": "", "focus": "50% 48%" },
   { "title": "Book Reading — Abu Dhabi", "category": "Corporate events", "image": "images/book-reading.jpg", "video": "videos/book-reading.mp4", "wideVideo": "videos/book-reading-wide.mp4", "link": "", "focus": "45% 35%" },
   { "title": "Grandiose", "category": "Brand content", "image": "images/grandiose.jpg", "video": "videos/grandiose.mp4", "wideVideo": "videos/grandiose-wide.mp4", "link": "", "focus": "50% 60%" },
