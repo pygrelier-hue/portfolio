@@ -88,10 +88,6 @@ function refreshDynamicLabels() {
   document.querySelectorAll('.preview-thumb[data-title]').forEach((thumb) => {
     thumb.setAttribute('aria-label', `${t('work.openAria')} ${thumb.dataset.title}`);
   });
-
-  document.querySelectorAll('.lightbox-links .lightbox-link-pill[data-index]').forEach((btn) => {
-    btn.textContent = `${t('work.watchVideo')} ${Number(btn.dataset.index) + 1}`;
-  });
 }
 
 function setPillLabel(pill) {
@@ -556,13 +552,28 @@ function openLightbox(project) {
       btn.classList.add('is-active');
     };
 
-    project.links.forEach((url, i) => {
+    project.links.forEach((entry, i) => {
+      const url = entry.url || entry;
+      const label = entry.title || url;
       const id = youtubeId(url);
       const btn = document.createElement('button');
       btn.type = 'button';
       btn.className = 'lightbox-link-pill';
       btn.dataset.index = i;
-      btn.textContent = `${t('work.watchVideo')} ${i + 1}`;
+
+      if (id) {
+        const thumb = document.createElement('img');
+        thumb.className = 'lightbox-link-thumb';
+        thumb.src = `https://i.ytimg.com/vi/${id}/hqdefault.jpg`;
+        thumb.alt = '';
+        thumb.loading = 'lazy';
+        btn.appendChild(thumb);
+      }
+
+      const span = document.createElement('span');
+      span.textContent = label;
+      btn.appendChild(span);
+
       btn.addEventListener('click', () => {
         if (id) {
           renderLightboxYoutube(id);

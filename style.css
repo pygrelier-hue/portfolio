@@ -663,16 +663,35 @@ html[lang="fr"] .project-card::after {
 .lightbox-links[hidden] { display: none; }
 
 .lightbox-link-pill {
+  display: inline-flex;
+  align-items: center;
+  gap: 0.55rem;
   font-family: var(--font-body);
   font-size: 0.8rem;
   color: var(--text-dim);
   background: transparent;
   border: 1px solid var(--border);
   border-radius: 999px;
-  padding: 0.4rem 0.9rem;
+  padding: 0.3rem 0.9rem 0.3rem 0.3rem;
   white-space: nowrap;
+  max-width: 100%;
   cursor: pointer;
   transition: color 0.2s ease, border-color 0.2s ease, background 0.2s ease;
+}
+
+.lightbox-link-pill span {
+  overflow: hidden;
+  text-overflow: ellipsis;
+  max-width: 160px;
+}
+
+.lightbox-link-thumb {
+  width: 32px;
+  height: 32px;
+  border-radius: 50%;
+  object-fit: cover;
+  flex-shrink: 0;
+  display: block;
 }
 
 .lightbox-link-pill:hover { color: var(--text); border-color: var(--accent); }

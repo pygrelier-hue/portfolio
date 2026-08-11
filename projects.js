@@ -4,15 +4,14 @@
 
 const PROJECTS = [
   { "title": "Rightfit", "category": "Fitness", "image": "images/rightfit-mashup.jpg", "video": "videos/rightfit-mashup.mp4", "link": "", "links": [
-    "https://www.youtube.com/shorts/oSI3Cy35pxA",
-    "https://www.youtube.com/shorts/tEO2OZ68P-8",
-    "https://www.youtube.com/shorts/qjWpyhGdoaI",
-    "https://www.youtube.com/shorts/L2mBZQbToQs",
-    "https://www.youtube.com/shorts/JknQtCqQRV8",
-    "https://www.youtube.com/shorts/JOvVMhRE4UI",
-    "https://www.youtube.com/shorts/3nplO_oJ6hA",
-    "https://www.youtube.com/shorts/WXRk1n3znro",
-    "https://www.youtube.com/shorts/CJ38i0lrSuQ"
+    { "url": "https://www.youtube.com/shorts/L2mBZQbToQs", "title": "Rightfit Running AD" },
+    { "url": "https://www.youtube.com/shorts/JknQtCqQRV8", "title": "Coach Joao Introduction" },
+    { "url": "https://www.youtube.com/shorts/oSI3Cy35pxA", "title": "Nicolo Client's Testimony" },
+    { "url": "https://www.youtube.com/shorts/tEO2OZ68P-8", "title": "Shiv Client's Testimony" },
+    { "url": "https://www.youtube.com/shorts/qjWpyhGdoaI", "title": "Training With Coach Joao" },
+    { "url": "https://www.youtube.com/shorts/3nplO_oJ6hA", "title": "Training With Coach Naty" },
+    { "url": "https://www.youtube.com/shorts/WXRk1n3znro", "title": "Sean Fitness Transformation" },
+    { "url": "https://www.youtube.com/shorts/CJ38i0lrSuQ", "title": "Enas Client's Testimony" }
   ], "focus": "0% 50%" },
   { "title": "ADIB", "category": "Corporate events", "image": "images/adib.jpg", "video": "videos/adib.mp4", "link": "", "focus": "70% 45%" },
   { "title": "BIGS", "category": "Corporate events", "image": "images/bigs.jpg", "video": "videos/bigs.mp4", "link": "", "focus": "50% 60%" },
