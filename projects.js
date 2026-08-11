@@ -8,7 +8,6 @@ const PROJECTS = [
     "https://www.youtube.com/shorts/tEO2OZ68P-8",
     "https://www.youtube.com/shorts/qjWpyhGdoaI",
     "https://www.youtube.com/shorts/L2mBZQbToQs",
-    "https://www.youtube.com/shorts/qLy66n5goQE",
     "https://www.youtube.com/shorts/JknQtCqQRV8",
     "https://www.youtube.com/shorts/JOvVMhRE4UI",
     "https://www.youtube.com/shorts/3nplO_oJ6hA",

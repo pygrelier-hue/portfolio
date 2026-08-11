@@ -92,8 +92,6 @@ function refreshDynamicLabels() {
   document.querySelectorAll('.lightbox-links .lightbox-link-pill[data-index]').forEach((btn) => {
     btn.textContent = `${t('work.watchVideo')} ${Number(btn.dataset.index) + 1}`;
   });
-  const mashupBtn = document.querySelector('.lightbox-links .lightbox-link-pill:not([data-index])');
-  if (mashupBtn) mashupBtn.textContent = t('work.mashup');
 }
 
 function setPillLabel(pill) {
@@ -557,16 +555,6 @@ function openLightbox(project) {
       linksList.querySelectorAll('button').forEach((b) => b.classList.remove('is-active'));
       btn.classList.add('is-active');
     };
-
-    const mashupBtn = document.createElement('button');
-    mashupBtn.type = 'button';
-    mashupBtn.className = 'lightbox-link-pill is-active';
-    mashupBtn.textContent = t('work.mashup');
-    mashupBtn.addEventListener('click', () => {
-      renderLightboxMashup(project);
-      setActive(mashupBtn);
-    });
-    linksList.appendChild(mashupBtn);
 
     project.links.forEach((url, i) => {
       const id = youtubeId(url);
