@@ -3,7 +3,7 @@
 // IMPORTANT: keep the "const PROJECTS = [ ... ];" wrapper, only edit what's inside the [ ].
 
 const PROJECTS = [
-  { "title": "Rightfit", "category": "Fitness", "image": "images/rightfit-mashup.jpg", "video": "videos/rightfit-mashup.mp4", "link": "", "focus": "25% 50%" },
+  { "title": "Rightfit", "category": "Fitness", "image": "images/rightfit-mashup.jpg", "video": "videos/rightfit-mashup.mp4", "link": "", "focus": "0% 50%" },
   { "title": "ADIB", "category": "Corporate events", "image": "images/adib.jpg", "video": "videos/adib.mp4", "link": "", "focus": "70% 45%" },
   { "title": "BIGS", "category": "Corporate events", "image": "images/bigs.jpg", "video": "videos/bigs.mp4", "link": "", "focus": "50% 60%" },
   { "title": "Worldef", "category": "Corporate events", "image": "images/worldef.jpg", "video": "videos/worldef.mp4", "link": "", "focus": "50% 48%" },
