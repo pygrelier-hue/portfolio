@@ -28,7 +28,7 @@ const PROJECTS = [
     { "url": "https://www.youtube.com/shorts/2L9DzmaaYxg", "title": "AlJaber" },
     { "url": "https://www.youtube.com/shorts/_RrCIIaCU1I", "title": "AlJaber2" }
   ], "focus": "50% 50%" },
-  { "title": "Washon", "category": "Brand content", "image": "images/washon.jpg", "video": "videos/washon.mp4", "link": "", "focus": "50% 50%" },
+  { "title": "Washon", "category": "Brand content", "image": "images/washon.jpg", "video": "videos/washon.mp4", "link": "https://youtube.com/shorts/NrURo7DEPLQ", "focus": "50% 50%" },
   { "title": "Jameel", "category": "Brand content", "image": "images/jameel.jpg", "video": "videos/jameel.mp4", "link": "", "links": [
     { "url": "https://www.youtube.com/shorts/Z7jcmUdco3Y", "title": "Jameel" },
     { "url": "https://www.youtube.com/shorts/RHl1nBw_e9E", "title": "Jameel 2" }
@@ -37,5 +37,6 @@ const PROJECTS = [
   { "title": "Emirates Islamic Bank", "category": "Brand content", "image": "images/emirates-islamic-bank.jpg", "video": "videos/emirates-islamic-bank.mp4", "link": "https://www.youtube.com/shorts/B2ZheXvQVK4", "focus": "50% 50%" },
   { "title": "Radisson Blu", "category": "F&B", "image": "images/radisson-blu.jpg", "video": "videos/radisson-blu.mp4", "link": "https://youtube.com/shorts/_MVpNzWn88Y", "focus": "50% 50%" },
   { "title": "Zed", "category": "Brand content", "image": "images/zed.jpg", "video": "videos/zed.mp4", "link": "https://youtube.com/shorts/lEbJq9NFyYA", "focus": "50% 50%" },
-  { "title": "Reset Fitness", "category": "Fitness", "image": "images/reset-fitness.jpg", "video": "videos/reset-fitness.mp4", "link": "https://youtube.com/shorts/YOiyKyfGYv8", "focus": "50% 50%" }
+  { "title": "Reset Fitness", "category": "Fitness", "image": "images/reset-fitness.jpg", "video": "videos/reset-fitness.mp4", "link": "https://youtube.com/shorts/YOiyKyfGYv8", "focus": "50% 50%" },
+  { "title": "BloomBox", "category": "Brand content", "image": "images/bloombox.jpg", "video": "videos/bloombox.mp4", "link": "https://youtube.com/shorts/6BL4Cl2uRXk", "focus": "50% 50%" }
 ];
