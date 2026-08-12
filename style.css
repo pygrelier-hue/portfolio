@@ -835,6 +835,14 @@ html[lang="fr"] .project-card::after {
   border-top: 1px solid var(--border);
 }
 
+.contact-primary {
+  display: flex;
+  flex-wrap: wrap;
+  justify-content: center;
+  align-items: center;
+  gap: 1.6rem;
+}
+
 .contact-email {
   display: inline-block;
   font-family: var(--font-body);
@@ -842,6 +850,23 @@ html[lang="fr"] .project-card::after {
   font-weight: 400;
   border-bottom: 1px solid var(--accent);
   padding-bottom: 0.25rem;
+}
+
+.whatsapp-link {
+  display: inline-flex;
+  align-items: center;
+  gap: 0.5rem;
+  font-family: var(--font-body);
+  font-size: clamp(1rem, 1.6vw, 1.15rem);
+  color: var(--text);
+  border-bottom: 1px solid var(--border);
+  padding-bottom: 0.25rem;
+  transition: border-color 0.2s ease, color 0.2s ease;
+}
+
+.whatsapp-link:hover {
+  color: var(--accent);
+  border-color: var(--accent);
 }
 
 .contact-links {
