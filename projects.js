@@ -23,7 +23,7 @@ const PROJECTS = [
     { "url": "https://www.youtube.com/shorts/xi5ZKjLbvPo", "title": "GrandioseApp1" },
     { "url": "https://www.youtube.com/shorts/zMUhiNBk-7c", "title": "GrandioseApp2" },
     { "url": "https://www.youtube.com/shorts/dcYvLErhNO8", "title": "HalloweenAppHalloween" }
-  ], "focus": "50% 60%" },
+  ], "focus": "50% 25%" },
   { "title": "Al Jaber", "category": "Brand content", "image": "images/al-jaber.jpg", "video": "videos/al-jaber.mp4", "link": "", "links": [
     { "url": "https://www.youtube.com/shorts/2L9DzmaaYxg", "title": "AlJaber" },
     { "url": "https://www.youtube.com/shorts/_RrCIIaCU1I", "title": "AlJaber2" }
