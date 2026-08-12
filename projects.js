@@ -24,6 +24,5 @@ const PROJECTS = [
     { "url": "https://www.youtube.com/shorts/zMUhiNBk-7c", "title": "GrandioseApp2" }
   ], "focus": "50% 60%" },
   { "title": "Guinness", "category": "Brand content", "image": "images/guinness.jpg", "video": "videos/guinness.mp4", "wideVideo": "videos/guinness-wide.mp4", "link": "", "focus": "50% 45%" },
-  { "title": "Coffee Planet", "category": "F&B", "image": "images/coffee-planet-1.jpg", "video": "videos/coffee-planet-1.mp4", "wideVideo": "videos/coffee-planet-1-wide.mp4", "link": "", "focus": "55% 60%" },
   { "title": "Denny's", "category": "F&B", "image": "images/dennys.jpg", "video": "videos/dennys.mp4", "wideVideo": "videos/dennys-wide.mp4", "link": "", "focus": "50% 55%" }
 ];
