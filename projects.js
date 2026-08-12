@@ -21,7 +21,8 @@ const PROJECTS = [
     { "url": "https://www.youtube.com/shorts/FVCly7w_alk", "title": "Grandiose" },
     { "url": "https://www.youtube.com/shorts/E7Hs3ZUJHD8", "title": "GrandioseApp" },
     { "url": "https://www.youtube.com/shorts/xi5ZKjLbvPo", "title": "GrandioseApp1" },
-    { "url": "https://www.youtube.com/shorts/zMUhiNBk-7c", "title": "GrandioseApp2" }
+    { "url": "https://www.youtube.com/shorts/zMUhiNBk-7c", "title": "GrandioseApp2" },
+    { "url": "https://www.youtube.com/shorts/dcYvLErhNO8", "title": "HalloweenAppHalloween" }
   ], "focus": "50% 60%" },
   { "title": "Denny's", "category": "F&B", "image": "images/dennys.jpg", "video": "videos/dennys.mp4", "wideVideo": "videos/dennys-wide.mp4", "link": "", "focus": "50% 55%" },
   { "title": "Al Jaber", "category": "Brand content", "image": "images/al-jaber.jpg", "video": "videos/al-jaber.mp4", "link": "", "links": [
