@@ -23,6 +23,10 @@ const PROJECTS = [
     { "url": "https://www.youtube.com/shorts/xi5ZKjLbvPo", "title": "GrandioseApp1" },
     { "url": "https://www.youtube.com/shorts/zMUhiNBk-7c", "title": "GrandioseApp2" }
   ], "focus": "50% 60%" },
-  { "title": "Guinness", "category": "Brand content", "image": "images/guinness.jpg", "video": "videos/guinness.mp4", "wideVideo": "videos/guinness-wide.mp4", "link": "", "focus": "50% 45%" },
-  { "title": "Denny's", "category": "F&B", "image": "images/dennys.jpg", "video": "videos/dennys.mp4", "wideVideo": "videos/dennys-wide.mp4", "link": "", "focus": "50% 55%" }
+  { "title": "Denny's", "category": "F&B", "image": "images/dennys.jpg", "video": "videos/dennys.mp4", "wideVideo": "videos/dennys-wide.mp4", "link": "", "focus": "50% 55%" },
+  { "title": "Al Jaber", "category": "Brand content", "image": "images/al-jaber.jpg", "video": "videos/al-jaber.mp4", "link": "", "focus": "50% 50%" },
+  { "title": "Washon", "category": "Brand content", "image": "images/washon.jpg", "video": "videos/washon.mp4", "link": "", "focus": "50% 50%" },
+  { "title": "Jameel", "category": "Brand content", "image": "images/jameel.jpg", "video": "videos/jameel.mp4", "link": "", "focus": "50% 50%" },
+  { "title": "Karma Café", "category": "F&B", "image": "images/karma-cafe.jpg", "video": "videos/karma-cafe.mp4", "link": "", "focus": "50% 50%" },
+  { "title": "Emirates Islamic Bank", "category": "Brand content", "image": "images/emirates-islamic-bank.jpg", "video": "videos/emirates-islamic-bank.mp4", "link": "", "focus": "50% 50%" }
 ];
